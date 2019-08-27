@@ -40,6 +40,7 @@ namespace keepr.Repositories
       INSERT INTO keeps (userId, name, description) VALUES (@UserId, @Name, @Description); 
       SELECT LAST_INSERT_ID()", newKeep);
       newKeep.Id = id;
+      newKeep.isPrivate = false;
       return newKeep;
     }
     public bool DeleteKeepById(int Id)
@@ -49,26 +50,6 @@ namespace keepr.Repositories
       ", new { Id });
       return success > 0;
     }
-
-
-
-
-
-
-
-
-
-
-
-    // FIXME Do I need the method below?
-
-    // public IEnumerable<Keep> GetAllPublicKeepsById(int Id)
-    // {
-    //   return _db.Query<Keep>(@"
-    //   SELECT * FROM keeps
-    //   ").ToList();
-    // }
-
 
     public string AddKeepToVault(int vaultId, int keepId)
     {

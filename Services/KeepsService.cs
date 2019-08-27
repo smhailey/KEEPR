@@ -21,7 +21,6 @@ namespace keepr.Services
     {
       return _repo.GetOneKeepById(Id);
     }
-    // FIXME Do I need the method below?
     [Authorize]
     public IEnumerable<Keep> GetAllKeepsByUserId(string UserId)
     {

@@ -24,6 +24,7 @@ namespace keepr.Controllers
       return Ok(_service.GetAllPublicKeeps());
     }
 
+    // GET api/5
     [HttpGet("{id}")]
     public ActionResult<Keep> GetOneKeepById(int id)
     {
