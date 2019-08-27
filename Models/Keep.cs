@@ -6,6 +6,7 @@ namespace keepr.Models
   {
     // NOTE I do not need [REQUIRED] here as MySQL will generate Id's due to the "AUTO_INCREMENT" command.
     public int Id { get; set; }
+    public string UserId { get; set; }
 
     [Required]
     [MinLength(1)]

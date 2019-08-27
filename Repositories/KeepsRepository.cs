@@ -14,11 +14,33 @@ namespace keepr.Repositories
     {
       _db = db;
     }
-    // FIXME 
+    internal IEnumerable<Keep> GetAllPublicKeeps()
+    {
+      return _db.Query<Keep>(@"
+      SELECT * FROM keeps
+      ").ToList();
+    }
+    public Keep GetOneKeepById(int Id)
+    {
+      return _db.QueryFirstOrDefault<Keep>(@"
+      SELECT * FROM keeps WHERE id = @Id
+      ", new { Id });
+    }
+
+    // REVIEW Do I need to incorporate the following code into GetAllKeepsByUserId:
+    // GetVault(string userId, int vaultId)
+    public IEnumerable<Keep> GetAllKeepsByUserId(string UserId)
+    {
+      return _db.Query<Keep>(@"
+      SELECT * FROM keeps WHERE id = @UserId
+      ", new { UserId });
+    }
+
     public Keep CreateKeep(Keep newKeep)
     {
+      // FIXME Add userId to below?
       int id = _db.ExecuteScalar<int>(@"
-      INSERT INTO keeps (name, description) VALUES (@Name, @Description); 
+      INSERT INTO keeps (userId, name, description) VALUES (@UseId, @Name, @Description); 
       SELECT LAST_INSERT_ID()", newKeep);
       newKeep.Id = id;
       return newKeep;
@@ -31,19 +53,16 @@ namespace keepr.Repositories
       return success > 0;
     }
 
-    internal IEnumerable<Keep> GetAllPublicKeeps()
-    {
-      return _db.Query<Keep>(@"
-      SELECT * FROM keeps
-      ").ToList();
-    }
 
-    public Keep GetOneKeepById(int Id)
-    {
-      return _db.QueryFirstOrDefault<Keep>(@"
-      SELECT * FROM keeps WHERE id = @Id
-      ", new { Id });
-    }
+
+
+
+
+
+
+
+
+
     // FIXME Do I need the method below?
 
     // public IEnumerable<Keep> GetAllPublicKeepsById(int Id)

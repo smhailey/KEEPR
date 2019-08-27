@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using keepr.Models;
 using keepr.Services;
@@ -24,35 +25,35 @@ namespace keepr.Controllers
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Keep> Get(int id)
+    public ActionResult<Keep> GetOneKeepById(int id)
     {
-      // var id = HttpContext.User.FindFirstValue("Id");
       return Ok(_service.GetOneKeepById(id));
     }
     // GET api/values/5
-    // FIXME Do I need the method below?
-    // [HttpGet("{id}")]
-    // public ActionResult<IEnumerable<Keep>> Get(int id)
-    // {
-    //   return Ok(_service.GetAllPublicKeepsById(id));
-    // }
+    [HttpGet("{userId}")]
+    public ActionResult<IEnumerable<Keep>> GetAllKeepsByUserId(string userId)
+    {
+      userId = HttpContext.User.FindFirstValue("Id");
+      return Ok(_service.GetAllKeepsByUserId(userId));
+    }
 
     // POST api/values
     [HttpPost]
-    public ActionResult<Keep> Create([FromBody]Keep newKeep)
+    public ActionResult<Keep> CreateKeep([FromBody]Keep newKeep)
     {
+      //  keep.userId = HttpContext.User.FindFirstValue("Id");
       return Ok(_service.CreateKeep(newKeep));
     }
 
     // PUT api/values/5
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
+    // public void Put(int id, [FromBody] string value)
+    // {
+    // }
 
     // DELETE api/values/5
     [HttpDelete("{id}")]
-    public ActionResult<bool> Delete(int id)
+    public ActionResult<bool> DeleteKeepById(int id)
     {
       return Ok(_service.DeleteKeepById(id));
     }
