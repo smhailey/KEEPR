@@ -17,7 +17,7 @@ namespace keepr.Controllers
   {
     private readonly KeepsService _service;
 
-    // GET api/values
+    // GET api/keeps
     [HttpGet]
     public ActionResult<Keep> Get()
     {
@@ -29,29 +29,30 @@ namespace keepr.Controllers
     {
       return Ok(_service.GetOneKeepById(id));
     }
-    // GET api/values/5
-    [HttpGet("{userId}")]
+
+    // GET api/keeps/297cf71d-2b5c-4ecc-b345-82ae7b4a2202
+    [HttpGet("user")]
     public ActionResult<IEnumerable<Keep>> GetAllKeepsByUserId(string userId)
     {
       userId = HttpContext.User.FindFirstValue("Id");
       return Ok(_service.GetAllKeepsByUserId(userId));
     }
 
-    // POST api/values
+    // POST api/keeps
     [HttpPost]
     public ActionResult<Keep> CreateKeep([FromBody]Keep newKeep)
     {
-      //  keep.userId = HttpContext.User.FindFirstValue("Id");
+      newKeep.UserId = HttpContext.User.FindFirstValue("Id");
       return Ok(_service.CreateKeep(newKeep));
     }
 
-    // PUT api/values/5
+    // PUT api/keeps/5
     [HttpPut("{id}")]
     // public void Put(int id, [FromBody] string value)
     // {
     // }
 
-    // DELETE api/values/5
+    // DELETE api/keeps/5
     [HttpDelete("{id}")]
     public ActionResult<bool> DeleteKeepById(int id)
     {

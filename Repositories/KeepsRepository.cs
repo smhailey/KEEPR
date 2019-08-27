@@ -27,20 +27,17 @@ namespace keepr.Repositories
       ", new { Id });
     }
 
-    // REVIEW Do I need to incorporate the following code into GetAllKeepsByUserId:
-    // GetVault(string userId, int vaultId)
     public IEnumerable<Keep> GetAllKeepsByUserId(string UserId)
     {
       return _db.Query<Keep>(@"
-      SELECT * FROM keeps WHERE id = @UserId
+      SELECT * FROM keeps WHERE userId = @UserId
       ", new { UserId });
     }
 
     public Keep CreateKeep(Keep newKeep)
     {
-      // FIXME Add userId to below?
       int id = _db.ExecuteScalar<int>(@"
-      INSERT INTO keeps (userId, name, description) VALUES (@UseId, @Name, @Description); 
+      INSERT INTO keeps (userId, name, description) VALUES (@UserId, @Name, @Description); 
       SELECT LAST_INSERT_ID()", newKeep);
       newKeep.Id = id;
       return newKeep;
