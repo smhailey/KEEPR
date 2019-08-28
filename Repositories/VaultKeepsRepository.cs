@@ -31,7 +31,7 @@ namespace keepr.Repositories
 
     public VaultKeep DeleteVaultKeep(VaultKeep oldVaultKeep)
     {
-      var id = _db.Execute("DELETE FROM vaultkeeps WHERE vaultId = @VaultId, keepId = @KeepId, userId = @UserId", oldVaultKeep);
+      var id = _db.Execute("DELETE FROM vaultkeeps WHERE vaultId = @VaultId AND keepId = @KeepId AND userId = @UserId", oldVaultKeep);
       oldVaultKeep.Id = id;
       return oldVaultKeep;
     }
