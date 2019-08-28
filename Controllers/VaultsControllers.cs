@@ -14,7 +14,7 @@ namespace keepr.Controllers
   {
     private readonly VaultsService _service;
 
-    // GET api/5
+    // GET api/vaults/5
     [HttpGet("{id}")]
     public ActionResult<Vault> GetOneVaultById(int id)
     {
