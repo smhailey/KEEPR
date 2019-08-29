@@ -99,14 +99,15 @@ export default new Vuex.Store({
     createKeep({ commit, dispatch }, keepData) {
       api.post('keeps', keepData)
         .then(res => {
-          dispatch('getKeeps')  //FIXME need to GetAllPublicKeeps & GetAllKeepsByUserId
+          dispatch('getAllKeepsByUserId')  //FIXME need to GetAllPublicKeeps & GetAllKeepsByUserId
+          // router.push({ name: 'home' })
         })
     },
     deleteKeepById({ commit, dispatch }, keepId) {
-      api.put('keeps/' + keepId)
+      api.delete('keeps/' + keepId)
         .then(res => {
-          dispatch('getKeeps')  //FIXME need to GetAllPublicKeeps & GetAllKeepsByUserId
-          router.push({ name: 'keeps' })
+          dispatch('getAllKeepsByUserId')  //FIXME need to GetAllPublicKeeps & GetAllKeepsByUserId
+          // router.push({ name: 'home' })
         })
     },
     //#endregion

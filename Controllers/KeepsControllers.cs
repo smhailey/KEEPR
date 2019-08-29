@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
 {
-  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class KeepsController : ControllerBase
@@ -31,6 +30,7 @@ namespace keepr.Controllers
       return Ok(_service.GetOneKeepById(id));
     }
 
+    [Authorize]
     // GET api/keeps/297cf71d-2b5c-4ecc-b345-82ae7b4a2202
     [HttpGet("user")]
     public ActionResult<IEnumerable<Keep>> GetAllKeepsByUserId(string userId)
@@ -39,6 +39,7 @@ namespace keepr.Controllers
       return Ok(_service.GetAllKeepsByUserId(userId));
     }
 
+    [Authorize]
     // POST api/keeps
     [HttpPost]
     public ActionResult<Keep> CreateKeep([FromBody]Keep newKeep)
@@ -47,6 +48,7 @@ namespace keepr.Controllers
       return Ok(_service.CreateKeep(newKeep));
     }
 
+    [Authorize]
     // DELETE api/keeps/5
     [HttpDelete("{id}")]
     public ActionResult<bool> DeleteKeepById(int id)

@@ -1,96 +1,45 @@
 <template>
-  <div class="home">
+  <div class="home container">
     <h1>Welcome Home {{user.username}}</h1>
-    <button v-if="user.id" @click="logout">logout</button>
-    <router-link v-else :to="{name: 'login'}">Login</router-link>
+    <button class="m-1" v-if="user.id" @click="logout">logout</button>
+    <router-link class="m-1" v-else :to="{name: 'login'}">Login</router-link>
+    <router-link class="m-1" :to="{name: 'dashboard'}">My Dashboards</router-link>
 
-
-    <form @submit.prevent="createKeep">
-      <input type="text" placeholder="Keep Name" v-model="newKeep.name" required>
-      <input type="text" placeholder="Keep Description" v-model="newKeep.description">
-      <input type="text" placeholder="Keep Image" v-model="newKeep.img">
-      <!-- <input type="radio" placeholder="Keep Description" v-model="newKeep.description"> -->
-
-      <div class="btn-group btn-group-toggle mx-2" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-          <input type="radio" name="public" id="public" autocomplete="off" checked v-model="newKeep.isPrivate=false">
-          Public
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="private" id="private" autocomplete="off" v-model="newKeep.isPrivate=true"> Private
-        </label>
-      </div>
-
-      <button type="submit">Create Keep</button>
-    </form>
-
-
-    <div class="row justify-content-center">
-      <div class="row">
-        <h3>Your Keeps</h3>
-      </div>
-      <div class="row">
-        <div class="card col-3 p-2 m-3" v-for="userKeep in userKeeps" :key="userKeep.id">
-          <!-- <router-link :to="{name: 'userKeep', params: {keepId: userKeep.id}}">{{userKeep.name}}</router-link> -->
-          <h5>{{userKeep.name}}</h5>
-          <p>{{userKeep.description}}</p>
-          <img :src="userKeep.img" class="img-fluid" alt="image">
-          <button type="button" class="mt-auto btn btn-danger btn-sm mb-2" @click="deleteKeep(keep.id)">Delete
-            keep</button>
-        </div>
-      </div>
-      <div class="row">
-        <h3>Public Keeps</h3>
-      </div>
-      <div class="row">
-        <div class="row justify-content-center">
-          <div class="card col-3 p-2 m-3" v-for="publicKeep in publicKeeps" :key="publicKeep._id">
-            <!-- <router-link :to="{name: 'keep', params: {keepId: publicKeep.id}}">{{publicKeep.name}}</router-link> -->
-            <h5>{{publicKeep.name}}</h5>
-            <p>{{publicKeep.description}}</p>
-            <img :src="publicKeep.img" class="img-fluid" alt="image">
-          </div>
-        </div>
+    <div class="row">
+      <h3>Public Keeps</h3>
+    </div>
+    <div class="row">
+      <div class="card col-3 p-2 m-3" v-for="publicKeep in publicKeeps" :key="publicKeep.id">
+        <!-- <router-link :to="{name: 'keep', params: {keepId: publicKeep.id}}">{{publicKeep.name}}</router-link> -->
+        <h5>{{publicKeep.name}}</h5>
+        <p>{{publicKeep.description}}</p>
+        <img :src="publicKeep.img" class="img-fluid" alt="image">
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Dashboard from '../components/Dashboard.vue'
   export default {
     name: "home",
     mounted() {
-      this.$store.dispatch("getAllKeepsByUserId");
       this.$store.dispatch("getAllPublicKeeps");
     },
     data() {
       return {
-        newKeep: {
-          name: "",
-          description: ""
-        }
+
       };
     },
     computed: {
       user() {
         return this.$store.state.user;
       },
-      userKeeps() {
-        return this.$store.state.userKeeps;
-      },
       publicKeeps() {
         return this.$store.state.publicKeeps;
       }
     },
     methods: {
-      createKeep() {
-        this.$store.dispatch("createKeep", this.newKeep);
-        this.newKeep = { name: "", description: "" };
-        this.$store.dispatch("getAllKeepsByUserId")
-      },
-      deleteKeep(keepId) {
-        this.$store.dispatch('deleteKeep', keepId);
-      },
       logout() {
         this.$store.dispatch("logout");
       }
