@@ -17,7 +17,7 @@ namespace keepr.Repositories
     internal IEnumerable<Keep> GetAllPublicKeeps()
     {
       return _db.Query<Keep>(@"
-      SELECT * FROM keeps WHERE isPrivate = false
+      SELECT * FROM keeps WHERE isPrivate != true
       ").ToList();
     }
     public Keep GetOneKeepById(int Id)
@@ -37,12 +37,12 @@ namespace keepr.Repositories
     public Keep CreateKeep(Keep newKeep)
     {
       int id = _db.ExecuteScalar<int>(@"
-      INSERT INTO keeps (userId, name, description) VALUES (@UserId, @Name, @Description); 
+      INSERT INTO keeps (userId, name, description, img, isPrivate) VALUES (@UserId, @Name, @Description, @img, @isPrivate); 
       SELECT LAST_INSERT_ID()", newKeep);
       newKeep.Id = id;
-      newKeep.isPrivate = false;
       return newKeep;
     }
+
     public bool DeleteKeepById(int Id)
     {
       int success = _db.Execute(@"

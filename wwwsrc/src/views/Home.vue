@@ -8,6 +8,7 @@
     <form @submit.prevent="createKeep">
       <input type="text" placeholder="Keep Name" v-model="newKeep.name" required>
       <input type="text" placeholder="Keep Description" v-model="newKeep.description">
+      <input type="text" placeholder="Keep Image" v-model="newKeep.img">
       <!-- <input type="radio" placeholder="Keep Description" v-model="newKeep.description"> -->
 
       <div class="btn-group btn-group-toggle mx-2" data-toggle="buttons">
@@ -22,25 +23,38 @@
 
       <button type="submit">Create Keep</button>
     </form>
-    <div class="row justify-content-center">
-      <div class="card col-3 p-2 m-3" v-for="userKeep in userKeeps" :key="userKeep._id">
-        <router-link :to="{name: 'userKeep', params: {keepId: keep._id}}">{{userKeep.name}}</router-link>
-        <button type="button" class="mt-auto btn btn-danger btn-sm mb-2" @click="deleteKeep(keep._id)">Delete
-          keep</button>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="card col-3 p-2 m-3" v-for="publicKeep in publicKeeps" :key="publicKeep._id">
-        <router-link :to="{name: 'keep', params: {keepId: keep._id}}">{{publicKeep.name}}</router-link>
-        <!-- <button type="button" class="mt-auto btn btn-danger btn-sm mb-2" @click="deleteKeep(keep._id)">Delete
-          keep</button> -->
-      </div>
-    </div>
 
 
+    <div class="row justify-content-center">
+      <div class="row">
+        <h3>Your Keeps</h3>
+      </div>
+      <div class="row">
+        <div class="card col-3 p-2 m-3" v-for="userKeep in userKeeps" :key="userKeep.id">
+          <!-- <router-link :to="{name: 'userKeep', params: {keepId: userKeep.id}}">{{userKeep.name}}</router-link> -->
+          <h5>{{userKeep.name}}</h5>
+          <p>{{userKeep.description}}</p>
+          <img :src="userKeep.img" class="img-fluid" alt="image">
+          <button type="button" class="mt-auto btn btn-danger btn-sm mb-2" @click="deleteKeep(keep.id)">Delete
+            keep</button>
+        </div>
+      </div>
+      <div class="row">
+        <h3>Public Keeps</h3>
+      </div>
+      <div class="row">
+        <div class="row justify-content-center">
+          <div class="card col-3 p-2 m-3" v-for="publicKeep in publicKeeps" :key="publicKeep._id">
+            <!-- <router-link :to="{name: 'keep', params: {keepId: publicKeep.id}}">{{publicKeep.name}}</router-link> -->
+            <h5>{{publicKeep.name}}</h5>
+            <p>{{publicKeep.description}}</p>
+            <img :src="publicKeep.img" class="img-fluid" alt="image">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
 
 <script>
   export default {
@@ -62,16 +76,17 @@
         return this.$store.state.user;
       },
       userKeeps() {
-        return this.$store.state.keeps;
+        return this.$store.state.userKeeps;
       },
       publicKeeps() {
-        return this.$store.state.keeps;
+        return this.$store.state.publicKeeps;
       }
     },
     methods: {
       createKeep() {
         this.$store.dispatch("createKeep", this.newKeep);
         this.newKeep = { name: "", description: "" };
+        this.$store.dispatch("getAllKeepsByUserId")
       },
       deleteKeep(keepId) {
         this.$store.dispatch('deleteKeep', keepId);
