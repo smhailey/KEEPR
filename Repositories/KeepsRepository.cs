@@ -17,7 +17,7 @@ namespace keepr.Repositories
     internal IEnumerable<Keep> GetAllPublicKeeps()
     {
       return _db.Query<Keep>(@"
-      SELECT * FROM keeps
+      SELECT * FROM keeps WHERE isPrivate = false
       ").ToList();
     }
     public Keep GetOneKeepById(int Id)

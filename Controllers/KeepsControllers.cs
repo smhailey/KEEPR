@@ -47,12 +47,6 @@ namespace keepr.Controllers
       return Ok(_service.CreateKeep(newKeep));
     }
 
-    // PUT api/keeps/5
-    [HttpPut("{id}")]
-    // public void Put(int id, [FromBody] string value)
-    // {
-    // }
-
     // DELETE api/keeps/5
     [HttpDelete("{id}")]
     public ActionResult<bool> DeleteKeepById(int id)
