@@ -20,7 +20,7 @@ export default new Vuex.Store({
     userKeeps: [],
     publicKeeps: [],
     activeKeep: [],
-    vaults: [],
+    userVaults: [],
     activeVault: []
   },
   mutations: {
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       state.publicKeeps = data
     },
     setVaults(state, data) {
-      state.vaults = data
+      state.userVaults = data
     },
   },
   actions: {
@@ -85,7 +85,7 @@ export default new Vuex.Store({
         })
     },
     getOneKeepById({ commit, dispatch }) {
-      api.get('keeps/' + keepID)
+      api.get('keeps/' + keepId)
         .then(res => {
           commit('setKeeps', res.data)
         })
@@ -99,50 +99,42 @@ export default new Vuex.Store({
     createKeep({ commit, dispatch }, keepData) {
       api.post('keeps', keepData)
         .then(res => {
-          dispatch('getAllKeepsByUserId')  //FIXME need to GetAllPublicKeeps & GetAllKeepsByUserId
-          // router.push({ name: 'home' })
+          dispatch('getAllKeepsByUserId')
         })
     },
     deleteKeepById({ commit, dispatch }, keepId) {
       api.delete('keeps/' + keepId)
         .then(res => {
-          dispatch('getAllKeepsByUserId')  //FIXME need to GetAllPublicKeeps & GetAllKeepsByUserId
-          // router.push({ name: 'home' })
+          dispatch('getAllKeepsByUserId')
         })
     },
     //#endregion
 
     //#region -- Vaults --
-    GetOneVaultById({ commit, dispatch }) {
-      api.get('vaults/' + vaultID)
+    getOneVaultById({ commit, dispatch }) {
+      api.get('vaults/' + vaultId)
         .then(res => {
           commit('setVaults', res.data)
         })
     },
-    GetAllVaultsByUserId({ commit, dispatch }) {
+    getAllVaultsByUserId({ commit, dispatch }) {
       api.get('vaults')
         .then(res => {
-          commit('setUserVaults', res.data)
+          commit('setVaults', res.data)
         })
     },
-    CreateVault({ commit, dispatch }, payload) {
+    createVault({ commit, dispatch }, payload) {
       api.post('vaults', payload)
         .then(res => {
-          dispatch('getVaults')  //FIXME need to GetAllPublicVaultss & GetAllVaultsByUserId
+          dispatch('getAllVaultsByUserId')
         })
     },
-    DeleteVaultById({ commit, dispatch }, payload) {
-      api.put('vaults/' + payload)
+    deleteVaultById({ commit, dispatch }, vaultId) {
+      api.delete('vaults/' + vaultId)
         .then(res => {
-          dispatch('getVaults')  //FIXME need to GetAllPublicVaults & GetAllVaultsByUserId
-          router.push({ name: 'vaults' })
+          dispatch('getAllVaultsByUserId')
         })
     },
     //#endregion
-
-
-
-
-
   }
 })
