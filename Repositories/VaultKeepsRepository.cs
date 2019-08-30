@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using Dapper;
 using keepr.Models;
@@ -17,13 +18,13 @@ namespace keepr.Repositories
     // SELECT * FROM vaultkeeps vk
     // INNER JOIN keeps k ON k.id = vk.keepId
     // WHERE (vaultId = @vaultId AND vk.userId = @userId)
-    public VaultKeep GetKeepsByVaultId(int Id)
+    public IEnumerable<Keep> GetKeepsByVaultId(int vaultId, string userId)
     {
-      return _db.QueryFirstOrDefault<VaultKeep>(@"
+      return _db.Query<Keep>(@"
       SELECT * FROM vaultkeeps vk
       INNER JOIN keeps k ON k.id = vk.keepId
       WHERE (vaultId = @vaultId AND vk.userId = @userId)
-      ", new { Id });
+      ", new { vaultId, userId });
     }
 
     public VaultKeep CreateVaultKeep(VaultKeep newVaultKeep)

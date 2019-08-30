@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -12,9 +13,9 @@ namespace keepr.Services
       _repo = repo;
     }
 
-    public VaultKeep GetKeepsByVaultId(int Id)
+    public IEnumerable<Keep> GetKeepsByVaultId(int Id, string userId)
     {
-      return _repo.GetKeepsByVaultId(Id);
+      return _repo.GetKeepsByVaultId(Id, userId);
     }
 
     public VaultKeep CreateVaultKeep(VaultKeep newVaultKeep)

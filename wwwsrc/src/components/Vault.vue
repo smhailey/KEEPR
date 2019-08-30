@@ -30,6 +30,7 @@
     props: ['vaultId'],
     mounted() {
       this.$store.dispatch("getOneVaultById", this.vaultId);
+      this.$store.dispatch("getKeepsByVaultId", this.vaultId)
       // get all vaultkeeps by vaultid
       this.$store.dispatch("getAllVaultsByUserId");
     },
