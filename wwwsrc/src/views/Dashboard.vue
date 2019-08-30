@@ -41,7 +41,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="card col-3 p-2 m-3" v-for="userVault in userVaults" :key="userVault.id">
-        <h5>{{userVault.name}}</h5>
+        <router-link :to="{name: 'vault', params: {vaultId: userVault.id}}">{{userVault.name}}</router-link>
         <p>{{userVault.description}}</p>
         <button type="button" class="mt-auto btn btn-danger btn-sm mb-2" @click="deleteVault(userVault.id)">Delete
           vault</button>
@@ -64,6 +64,7 @@
 
 <script>
   import Keep from '../components/Keep.vue'
+  import Vault from '../components/Vault.vue'
   export default {
     name: 'Dashboard',
     props: ['vaultProp'],

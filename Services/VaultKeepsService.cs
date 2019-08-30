@@ -12,9 +12,9 @@ namespace keepr.Services
       _repo = repo;
     }
 
-    public VaultKeep GetOneVaultKeepById(int Id)
+    public VaultKeep GetKeepsByVaultId(int Id)
     {
-      return _repo.GetOneVaultKeepById(Id);
+      return _repo.GetKeepsByVaultId(Id);
     }
 
     public VaultKeep CreateVaultKeep(VaultKeep newVaultKeep)

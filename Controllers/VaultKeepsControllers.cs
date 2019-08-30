@@ -14,31 +14,11 @@ namespace keepr.Controllers
   {
     private readonly VaultKeepsService _service;
 
-
-    // internal IEnumerable<Contractor> GetConsByJobId(int jobId)
-    //         {
-    //             string query = @"
-    //             SELECT * FROM contractorjobs cj
-    //             INNER JOIN contractors c ON c.id = cj.contractorId
-    //             WHERE jobId = @jobId;
-    //             ";
-    //             return _db.Query<Contractor>(query, new { jobId });
-    //         }
-
-
-
-    // USE THIS LINE FOR GET KEEPS BY VAULTID
-    // SELECT * FROM vaultkeeps vk
-    // INNER JOIN keeps k ON k.id = vk.keepId
-    // WHERE (vaultId = @vaultId AND vk.userId = @userId)
-
-
-
-    // GET api/vaultkeep/5
+    // GET api/vaultkeeps/5
     [HttpGet("{id}")]
-    public ActionResult<VaultKeep> GetOneVaultKeepById(int id)
+    public ActionResult<VaultKeep> GetKeepsByVaultId(int id)
     {
-      return Ok(_service.GetOneVaultKeepById(id));
+      return Ok(_service.GetKeepsByVaultId(id));
     }
 
     // POST api/vaultkeeps

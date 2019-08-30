@@ -6,18 +6,13 @@
     <h5>Keep Description: {{activeKeep.description}}</h5>
     <img :src="activeKeep.img" class="img-fluid" alt="image">
 
-
-    <!-- drop down on task.vue
-          drop to show available lists
-          on click update task with new list id
-          get all tasksById again -->
     <form>
       Select a vault to pin the keep to:
-      <select id="AddKeepToVault">
-        <option value=:userVault.name v-for="userVault in userVaults">{{userVault.name}}</option>
+      <select v-model="selected">
+        <option v-for="userVault in userVaults" :value="userVault.id">{{userVault.name}}</option>
       </select>
     </form>
-    <button type="button" onclick="addKeepToVault()">Pin keep</button>
+    <button type="button" @click="addKeepToVault">Pin keep</button>
 
 
   </div>
@@ -33,7 +28,7 @@
     },
     data() {
       return {
-
+        selected: ""
       }
     },
     computed: {
@@ -70,6 +65,12 @@
       },
       deleteKeep(id) {
         this.$store.dispatch('deleteKeepById', id);
+      },
+      addKeepToVault() {
+
+        console.log(this.selected)
+        this.newVaultKeep = { keepId: this.keepId, vaultId: this.selected }
+        this.$store.dispatch("addKeepToVault", this.newVaultKeep);
       },
       logout() {
         this.$store.dispatch("logout");

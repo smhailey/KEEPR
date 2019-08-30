@@ -13,10 +13,16 @@ namespace keepr.Repositories
       _db = db;
     }
 
-    public VaultKeep GetOneVaultKeepById(int Id)
+    // USE THIS LINE FOR GET KEEPS BY VAULTID
+    // SELECT * FROM vaultkeeps vk
+    // INNER JOIN keeps k ON k.id = vk.keepId
+    // WHERE (vaultId = @vaultId AND vk.userId = @userId)
+    public VaultKeep GetKeepsByVaultId(int Id)
     {
       return _db.QueryFirstOrDefault<VaultKeep>(@"
-      SELECT * FROM vaultkeeps WHERE id = @Id
+      SELECT * FROM vaultkeeps vk
+      INNER JOIN keeps k ON k.id = vk.keepId
+      WHERE (vaultId = @vaultId AND vk.userId = @userId)
       ", new { Id });
     }
 
