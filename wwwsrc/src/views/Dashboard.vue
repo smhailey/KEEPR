@@ -70,7 +70,7 @@
     mounted() {
       this.$store.dispatch("getAllKeepsByUserId");
       this.$store.dispatch("getAllPublicKeeps");
-      this.$store.dispatch("getAllVaultsByUserId", this.vaultProp);
+      this.$store.dispatch("getAllVaultsByUserId");
     },
     data() {
       return {

@@ -31,20 +31,26 @@ export default new Vuex.Store({
       //clear the entire state object of user data
       state.user = {}
     },
-    userKeeps(state, data) {
-      state.userKeeps = data
-    },
-    publicKeeps(state, data) {
-      state.publicKeeps = data
-    },
+    // userKeeps(state, data) {
+    //   state.userKeeps = data
+    // },
+    // publicKeeps(state, data) {
+    //   state.publicKeeps = data
+    // },
     setUserKeeps(state, data) {
       state.userKeeps = data
     },
     setPublicKeeps(state, data) {
       state.publicKeeps = data
     },
-    setVaults(state, data) {
+    setActiveKeep(state, data) {
+      state.activeKeep = data
+    },
+    setUserVaults(state, data) {
       state.userVaults = data
+    },
+    setActiveVault(state, data) {
+      state.activeVault = data
     },
   },
   actions: {
@@ -81,19 +87,19 @@ export default new Vuex.Store({
     getAllPublicKeeps({ commit, dispatch }) {
       api.get('keeps')
         .then(res => {
-          commit('publicKeeps', res.data)
+          commit('setPublicKeeps', res.data)
         })
     },
-    getOneKeepById({ commit, dispatch }) {
+    getOneKeepById({ commit, dispatch }, keepId) {
       api.get('keeps/' + keepId)
         .then(res => {
-          commit('activeKeep', res.data)
+          commit('setActiveKeep', res.data)
         })
     },
     getAllKeepsByUserId({ commit, dispatch }) {
       api.get('keeps/user')
         .then(res => {
-          commit('userKeeps', res.data)
+          commit('setUserKeeps', res.data)
         })
     },
     createKeep({ commit, dispatch }, keepData) {
@@ -111,16 +117,16 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- Vaults --
-    getOneVaultById({ commit, dispatch }) {
+    getOneVaultById({ commit, dispatch }, vaultId) {
       api.get('vaults/' + vaultId)
         .then(res => {
-          commit('setVaults', res.data)
+          commit('setActiveVault', res.data)
         })
     },
     getAllVaultsByUserId({ commit, dispatch }) {
       api.get('vaults')
         .then(res => {
-          commit('setVaults', res.data)
+          commit('setUserVaults', res.data)
         })
     },
     createVault({ commit, dispatch }, payload) {

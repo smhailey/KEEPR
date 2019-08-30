@@ -2,9 +2,9 @@
   <div class="keep">
     <button class="btn btn-sm btn-outline-danger m-2" @click="logout">Logout</button>
     <br>
-    <h1>Keep Name: {{ActiveKeep.name}}</h1>
-    <h5>Keep Description: {{ActiveKeep.description}}</h5>
-    <img :src="userKeep.img" class="img-fluid" alt="image">
+    <h1>Keep Name: {{activeKeep.name}}</h1>
+    <h5>Keep Description: {{activeKeep.description}}</h5>
+    <img :src="activeKeep.img" class="img-fluid" alt="image">
 
 
     <!-- drop down on task.vue
@@ -14,10 +14,10 @@
     <form>
       Select a vault to pin the keep to:
       <select id="AddKeepToVault">
-        <option value=:vaultProp.name v-for="vault in vaults">{{vaultProp.name}}</option>
+        <option value=:userVault.name v-for="userVault in userVaults">{{userVault.name}}</option>
       </select>
     </form>
-    <button type="button" onclick="AddKeepToVault()">Pin keep</button>
+    <button type="button" onclick="addKeepToVault()">Pin keep</button>
 
 
   </div>
@@ -28,8 +28,8 @@
     name: 'keep',
     props: ['keepId'],
     mounted() {
-      this.$store.dispatch("getOneKeepById", keepId);
-      this.$store.dispatch("getAllVaultsByUserId", keepId);
+      this.$store.dispatch("getOneKeepById", this.keepId);
+      this.$store.dispatch("getAllVaultsByUserId");
     },
     data() {
       return {
