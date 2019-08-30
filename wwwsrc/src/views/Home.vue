@@ -3,7 +3,7 @@
     <h1>Welcome Home {{user.username}}</h1>
     <button class="m-1" v-if="user.id" @click="logout">logout</button>
     <router-link class="m-1" v-else :to="{name: 'login'}">Login</router-link>
-    <router-link class="m-1" :to="{name: 'dashboard'}">My Dashboards</router-link>
+    <router-link class="m-1" :to="{name: 'dashboard'}">My Dashboard</router-link>
 
     <div class="row">
       <h3>Public Keeps</h3>

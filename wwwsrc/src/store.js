@@ -87,7 +87,7 @@ export default new Vuex.Store({
     getOneKeepById({ commit, dispatch }) {
       api.get('keeps/' + keepId)
         .then(res => {
-          commit('setKeeps', res.data)
+          commit('activeKeep', res.data)
         })
     },
     getAllKeepsByUserId({ commit, dispatch }) {
