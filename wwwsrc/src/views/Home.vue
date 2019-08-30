@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import Dashboard from '../components/Dashboard.vue'
+  import Dashboard from '../views/Dashboard.vue'
   export default {
     name: "home",
     mounted() {

@@ -26,22 +26,14 @@
 <script>
   export default {
     name: 'keep',
-    props: ['keepProp'],
+    props: ['keepId'],
     mounted() {
-      this.$store.dispatch("getOneKeepById");
-      this.$store.dispatch("getAllVaultsByUserId");
+      this.$store.dispatch("getOneKeepById", keepId);
+      this.$store.dispatch("getAllVaultsByUserId", keepId);
     },
     data() {
       return {
-        activeKeep: {
-          name: "",
-          description: "",
-          isPrivate: 0
-        },
-        newVault: {
-          name: "",
-          description: ""
-        }
+
       }
     },
     computed: {
@@ -54,11 +46,11 @@
       publicKeeps() {
         return this.$store.state.publicKeeps;
       },
-      activeKeeps() {
-        return this.$store.state.activeKeeps;
-      },
       userVaults() {
         return this.$store.state.userVaults;
+      },
+      activeKeep() {
+        return this.$store.state.activeKeep;
       }
     },
     methods: {

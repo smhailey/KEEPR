@@ -5,7 +5,7 @@ import Home from './views/Home.vue'
 // @ts-ignore
 import Login from './views/Login.vue'
 // @ts-ignore
-import Dashboard from './components/Dashboard.vue'
+import Dashboard from './views/Dashboard.vue'
 // @ts-ignore
 import Keep from './components/Keep.vue'
 

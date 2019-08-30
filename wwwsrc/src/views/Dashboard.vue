@@ -13,13 +13,6 @@
       <input class="m-1" type="checkbox" id="checkbox" v-model="newKeep.isPrivate">
       <label for="checkbox">Private</label>
 
-
-      <!-- <input class="m-1" type="radio" id="public" value="0" v-model="newKeep.isPrivate">
-      <label for="public">Public</label>
-      <input class="m-1" type="radio" id="private" value="1" v-model="newKeep.isPrivate">
-      <label for="private">Private</label> -->
-
-
       <button class="m-1" type="submit">Create Keep</button>
     </form>
 
@@ -35,7 +28,6 @@
     <div class="row justify-content-center">
       <div class="card col-3 p-2 m-3" v-for="userKeep in userKeeps" :key="userKeep.id">
         <router-link :to="{name: 'keep', params: {keepId: userKeep.id}}">{{userKeep.name}}</router-link>
-        <!-- <router-link :to="{name: 'board', params: {boardId: board._id}}">{{board.title}}</router-link> -->
         <h5>{{userKeep.name}}</h5>
         <p>{{userKeep.description}}</p>
         <img :src="userKeep.img" class="img-fluid" alt="image">
