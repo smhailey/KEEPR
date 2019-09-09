@@ -11,9 +11,13 @@
     </div>
     <div class="row justify-content-center">
       <div class="card col-3 p-2 m-3" v-for="userVaultKeep in userVaultKeeps" :key="userVaultKeep.id">
-        <!-- <router-link :to="{name: 'vaultKeep', params: {keepId: userVaultKeep.id}}">{{userVaultKeep.name}}</router-link> -->
-        <h5>{{userVaultKeep.name}}</h5>
-        <p>{{userVaultKeep.description}}</p>
+        <router-link :to="{name: 'userVaultKeep', params: {userVaultKeepId: userVaultKeep.id}}">{{userVaultKeep.name}}
+        </router-link>
+        <!-- <h5>{{userVaultKeep.name}}</h5> -->
+        <router-link :to="{name: 'userVaultKeep', params: {userVaultKeepId: userVaultKeep.id}}">
+          {{userVaultKeep.description}}
+        </router-link>
+        <!-- <p>{{userVaultKeep.description}}</p> -->
         <img :src="userVaultKeep.img" class="img-fluid" alt="image">
         <!-- <button type="button" class="mt-auto btn btn-danger btn-sm mb-2" @click="deleteKeep(userKeep.id)">Delete keep</button> -->
       </div>
@@ -61,7 +65,7 @@
     },
     methods: {
       getKeepsByVaultId(vaultId) {
-        this.$store.dispatch("GetKeepsByVaultId", this.vaultId);
+        this.$store.dispatch("getKeepsByVaultId", this.vaultId);
       },
       logout() {
         this.$store.dispatch("logout");

@@ -32,12 +32,6 @@ export default new Vuex.Store({
       //clear the entire state object of user data
       state.user = {}
     },
-    // userKeeps(state, data) {
-    //   state.userKeeps = data
-    // },
-    // publicKeeps(state, data) {
-    //   state.publicKeeps = data
-    // },
     setUserKeeps(state, data) {
       state.userKeeps = data
     },

@@ -9,10 +9,8 @@
       <input class="m-1" type="text" placeholder="Keep Description" v-model="newKeep.description">
       <input class="m-1" type="text" placeholder="Keep Image" v-model="newKeep.img">
       <br>
-
       <input class="m-1" type="checkbox" id="checkbox" v-model="newKeep.isPrivate">
       <label for="checkbox">Private</label>
-
       <button class="m-1" type="submit">Create Keep</button>
     </form>
 
