@@ -139,18 +139,21 @@ export default new Vuex.Store({
           dispatch('getAllVaultsByUserId')
         })
     },
+    //#endregion
+
+    //#region -- VaultKeeps --
+    getKeepsByVaultId({ commit, dispatch }, vaultId) {
+      api.get('vaultkeeps/' + vaultId)
+        .then(res => {
+          commit('setUserVaultKeeps', res.data)
+        })
+    },
     addKeepToVault({ commit, dispatch }, newVaultKeep) {
       api.post('vaultkeeps', newVaultKeep)
         .then(res => {
           dispatch('getAllVaultsByUserId')
         })
     },
-    getKeepsByVaultId({ commit, dispatch }, vaultId) {
-      api.get('vaultkeeps/' + vaultId)
-        .then(res => {
-          commit('setUserVaultKeeps', res.data)
-        })
-    }
 
     //#endregion
   }
